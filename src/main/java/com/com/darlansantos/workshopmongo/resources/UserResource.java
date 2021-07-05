@@ -1,6 +1,7 @@
 package com.com.darlansantos.workshopmongo.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.com.darlansantos.workshopmongo.domain.User;
+import com.com.darlansantos.workshopmongo.dto.UserDTO;
 import com.com.darlansantos.workshopmongo.services.UserService;
 
 @RestController
@@ -18,8 +20,10 @@ public class UserResource {
 	private UserService userService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public List<User> findAll() {
-		return userService.findAll();
+	public List<UserDTO> findAll() {
+		 List<User> list = userService.findAll();
+		 List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+		 return listDto;
 	}
 	
 }
