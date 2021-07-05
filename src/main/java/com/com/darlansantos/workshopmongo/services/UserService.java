@@ -7,5 +7,7 @@ import com.com.darlansantos.workshopmongo.domain.User;
 public interface UserService {
 	
 	List<User> findAll();
+	
+	User findById(String id);
 
 }
